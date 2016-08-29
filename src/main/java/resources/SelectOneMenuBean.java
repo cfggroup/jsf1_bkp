@@ -348,9 +348,15 @@ public class SelectOneMenuBean {
 						System.out.println("ResultJasper:" + resultSetDataSource);
 
 						String jsFile = JasperCompileManager.compileReportToFile(realPath_in_jrxml);
+						
+						/** Inclusion del logo para su paso por parametros ****/
+						BufferedImage logo = ImageIO.read(getClass().getResource("./imgs/1_PROPUESTA LOGO_colores.png"));
+						Map<String, Object> param = new HashMap<String, Object>();
+						param.put("logo",logo); 
+						/******************************************************/
+						
 
-						JasperPrint jasperPrint = JasperFillManager.fillReport(jsFile, new HashMap(),
-								resultSetDataSource);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jsFile, param, resultSetDataSource);
 
 						/*
 						 * JRViewer jv = new JRViewer(jasperPrint); JFrame jf =
