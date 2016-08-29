@@ -1,6 +1,7 @@
 package resources;
 
 import javax.faces.model.SelectItem;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -12,8 +13,6 @@ import org.apache.commons.io.IOUtils;
 
 import org.primefaces.context.RequestContext;
 
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -38,6 +37,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
