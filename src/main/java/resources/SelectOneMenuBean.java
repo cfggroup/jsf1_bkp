@@ -318,6 +318,7 @@ public class SelectOneMenuBean {
 		ServletContext ctx = (ServletContext) ec.getContext();
 		String realPath_in_jrxml = ctx.getRealPath("/jaspertemplate/invoice.jrxml");
 		String realPath_in_jasper = ctx.getRealPath("/jaspertemplate/invoice.jasper");
+		String realPath_logo = ctx.getRealPath("/imgs/1_PROPUESTA LOGO_colores.png");
 
 		System.out.println("JRXML:" + realPath_in_jrxml);
 
@@ -350,7 +351,7 @@ public class SelectOneMenuBean {
 						String jsFile = JasperCompileManager.compileReportToFile(realPath_in_jrxml);
 						
 						/** Inclusion del logo para su paso por parametros ****/
-						BufferedImage logo = ImageIO.read(getClass().getResource("./imgs/1_PROPUESTA LOGO_colores.png"));
+						BufferedImage logo = ImageIO.read(getClass().getResource(realPath_logo));
 						Map<String, Object> param = new HashMap<String, Object>();
 						param.put("logo",logo); 
 						/******************************************************/
