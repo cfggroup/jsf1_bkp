@@ -1,7 +1,6 @@
 package resources;
 
 import javax.faces.model.SelectItem;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 
 import org.primefaces.context.RequestContext;
 
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -37,7 +38,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -318,7 +318,6 @@ public class SelectOneMenuBean {
 		ServletContext ctx = (ServletContext) ec.getContext();
 		String realPath_in_jrxml = ctx.getRealPath("/jaspertemplate/invoice.jrxml");
 		String realPath_in_jasper = ctx.getRealPath("/jaspertemplate/invoice.jasper");
-		String realPath_logo = ctx.getRealPath("/imgs/1_PROPUESTA LOGO_colores.png");
 
 		System.out.println("JRXML:" + realPath_in_jrxml);
 
@@ -349,15 +348,9 @@ public class SelectOneMenuBean {
 						System.out.println("ResultJasper:" + resultSetDataSource);
 
 						String jsFile = JasperCompileManager.compileReportToFile(realPath_in_jrxml);
-						
-						/** Inclusion del logo para su paso por parametros ****/
-						/*BufferedImage logo = ImageIO.read(getClass().getResource(realPath_logo));
-						Map<String, Object> param = new HashMap<String, Object>();
-						param.put("logo",logo);*/ 
-						/******************************************************/
-						
 
-						JasperPrint jasperPrint = JasperFillManager.fillReport(jsFile, new HashMap(), resultSetDataSource);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jsFile, new HashMap(),
+								resultSetDataSource);
 
 						/*
 						 * JRViewer jv = new JRViewer(jasperPrint); JFrame jf =
@@ -372,7 +365,7 @@ public class SelectOneMenuBean {
 
 						ec.setResponseContentType("application/pdf");
 						ec.setResponseHeader("Content-Disposition", "attachment; filename='invoice_" + value + ".pdf'");
-						ec.setResponseContentLength(ec.getResponseBufferSize());
+						ec.setResponseContentLength(10000);
 						// Se seteo manual el tamaño de archivo
 						// //Genera problemas en Tomcat
 
